@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shape Tools</title>
+    <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <div id="app" class="container">
+      <form>
+        <div class="form-group">
+          <br />
+          <label>Type</label>
+          <select class="form-control" id="type">
+            <option value="1">Rectangle</option>
+            <option value="2">Elipse</option>
+            <option value="3">Polygon</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Count</label>
+          <input
+            type="number"
+            class="form-control"
+            id="count"
+            placeholder="Input Count"
+            value="1"
+            min="1"
+          />
+        </div>
+        <div class="form-group">
+          <br />
+          <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+          <button type="submit" class="btn btn-danger" id="cancel">Cancel</button>
+        </div>
+      </form>
+    </div>
+    <script>
+        document.getElementById('submit').onclick = () => {
+          const idType = document.getElementById('type');
+          const valType = parseInt(idType.value, 10);
+          const idCount = document.getElementById('count');
+          const valCount = parseInt(idCount.value, 10);
+          parent.postMessage({ 
+            pluginMessage: {
+               type: valType, count: valCount 
+              }
+          }, '*');
+        }
+
+        document.getElementById('cancel').onclick = () => {
+          parent.postMessage({
+            pluginMessage: {
+              type: 0
+            }
+          }, '*')
+        }
+    </script>
+  </body>
+</html>
